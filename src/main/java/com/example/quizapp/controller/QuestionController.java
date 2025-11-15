@@ -4,6 +4,7 @@ import com.example.quizapp.Question;
 import com.example.quizapp.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,12 +15,19 @@ import java.util.List;
 public class QuestionController {
 
     @Autowired
-    QuestionService questionSerice;
+    QuestionService questionService;
 
 
     @GetMapping("allQuestions")
     public List<Question> getAllQuestions(){
-        return questionSerice.getAllQuestions();
+        return questionService.getAllQuestions();
+    }
+
+    @GetMapping("category/{category}")
+    public List<Question> getQuestionsByCategory(@PathVariable String category){
+        return questionService.getQuestionByCategory(category);
+
     }
 
 }
+
