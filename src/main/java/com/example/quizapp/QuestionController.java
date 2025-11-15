@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class QuestionController {
     @GetMapping("allQuestions")
     public String getAllQuestions(){
-        return "Hi, therse are your Question";
+        return "Hi, these are your Question";
     }
 
 }
