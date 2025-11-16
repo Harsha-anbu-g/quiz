@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,16 +19,37 @@ public class QuestionService {
     QuestionDao questionDao;
 
     public ResponseEntity<List<Question>> getAllQuestions() {
-        return new ResponseEntity<>(questionDao.findAll(), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(questionDao.findAll(), HttpStatus.OK);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+        }
+
+
+    public ResponseEntity<List<Question>> getQuestionByCategory(String category) {
+        try {
+            return new ResponseEntity<>(questionDao.findByCategory(category), HttpStatus.OK);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
 
-    public List<Question> getQuestionByCategory(String category) {
-        return questionDao.findByCategory(category);
-    }
 
-    public String addQuestion(@RequestBody Question question) {
-        questionDao.save(question);
-        return "Question added successfully";
+    public ResponseEntity<String> addQuestion(Question question) {
+        try {
+
+            questionDao.save(question);
+            return new ResponseEntity<>("Question added successfully", HttpStatus.CREATED);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>("Fail to add Question", HttpStatus.BAD_REQUEST);
 
     }
 }
