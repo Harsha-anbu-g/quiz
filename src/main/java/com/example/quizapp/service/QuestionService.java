@@ -49,7 +49,7 @@ public class QuestionService {
         catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<>("Fail to add Question", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Failed to add Question", HttpStatus.BAD_REQUEST);
 
     }
 }
